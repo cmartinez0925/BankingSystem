@@ -1,13 +1,21 @@
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
 
+#include <stdlib.h>
 #include <stdio.h>
-#include "user.h"
+#include <string.h>
+
+#define BALANCE_LENGTH      12
+#define NULL_TERMINATOR     '\0'
+
+#define FAIL                -1
+#define SUCCESSFUL          0
+
+typedef enum {CHECKING = 0, SAVINGS = 1} AccountType;
 
 struct Account {
-    int accountNumber;
-    double accountBalance;
-    struct User user;
+    AccountType accountType;
+    char accountBalance[BALANCE_LENGTH];
 };
 
 /*FUNCTIONS*/

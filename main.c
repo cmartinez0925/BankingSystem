@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "account.h"
 #include "bank_utils.h"
-#include "user.h"
 
-#define FILENAME    "test.txt"
+#define SIGN_IN             1
+#define CREATE_USER         2
+#define EXIT                3
+
+#define FILENAME            "test.txt"
 
 /*
 THINGS TO IMPLEMENT LATER:
@@ -14,12 +16,11 @@ THINGS TO IMPLEMENT LATER:
 3 - Transfer money from user accounts
 */
 
-typedef enum {false = 0, true = 1} bool;
 
 int main(void) {
     int choice;
     int signInStatus;
-    int userCreatedStatus;
+    struct User currentUser;
     bool invalidChoice = true;
     bool notSignedIn = true;
 
@@ -38,7 +39,7 @@ int main(void) {
         case SIGN_IN:
             while (notSignedIn) {
                 clearView();
-                signInStatus = signInUserView(FILENAME);
+                signInStatus = signInUserView(FILENAME, &currentUser);
                 if (signInStatus == SIGN_IN_SUCCESSFUL) {
                     notSignedIn = false;
                 } else if (signInStatus == INCORRECT_PASSWORD) {
@@ -48,9 +49,12 @@ int main(void) {
                 }
                 /*PROBS SHOULD HAVE A WAY TO GO BACK TO SPLASHVIEW()...LATER LINNNK PROBS*/
             }
+
+            userMenuView();
             break;
         case CREATE_USER:
             createUserView(FILENAME);
+            /*PROBS SHOULD HAVE A WAY TO GO BACK TO SPLASHVIEW()...LATER LINNNK PROBS*/
             break;
         case EXIT:
             exit(0);
